@@ -4,6 +4,7 @@ import { useState } from 'react';
 import axios from 'axios';
 
 const REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+console.log(process.env.NODE_ENV, REACT_APP_BACKEND_URL);
 
 function App() {
   const [contacts, setContacts] = useState(0);
