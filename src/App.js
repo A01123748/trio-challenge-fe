@@ -10,25 +10,30 @@ function App() {
   const [contacts, setContacts] = useState(0);
   const [sync, setSync] = useState(false);
   const [cursor, setCursor] = useState('pointer');
+  
   const onClick = async () => {
-    if(sync === false){
+    if(!sync){
       document.body.style.cursor='wait';
       setCursor('wait');
       // Make API call and update contacs number
-      const syncResponse = await axios.get(REACT_APP_BACKEND_URL, {headers: {Authorization: `Bearer ${REACT_APP_API_TOKEN}`}});
-      if(syncResponse?.data){
-        const {data} = syncResponse;
-        setContacts(data.new_members + data.updated_members);
-        setSync(true);
-        document.body.style.cursor='default';
-        setCursor('default');
-        setTimeout(() => {
-          setSync(false);
-          setContacts(0);
-          setCursor('pointer');
-        },5000);
+      try{
+        const syncResponse = await axios.get(REACT_APP_BACKEND_URL, {headers: {Authorization: `Bearer ${REACT_APP_API_TOKEN}`}});
+        if(syncResponse?.data){
+          const {data} = syncResponse;
+          setContacts(data.new_members + data.updated_members);
+          setSync(true);
+          document.body.style.cursor='default';
+          setCursor('default');
+          setTimeout(() => {
+            setSync(false);
+            setContacts(0);
+            setCursor('pointer');
+          },5000);
+        }
       }
-      else{
+      catch(error){
+        alert(error);
+        console.log(error);
         document.body.style.cursor='default';
         setCursor('pointer');
       }
