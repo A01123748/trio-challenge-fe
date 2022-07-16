@@ -4,7 +4,9 @@ import { useState } from 'react';
 import axios from 'axios';
 
 const REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-console.log(process.env.NODE_ENV, REACT_APP_BACKEND_URL);
+const REACT_APP_API_TOKEN = process.env.REACT_APP_API_TOKEN;
+
+console.log(process.env.NODE_ENV, REACT_APP_BACKEND_URL, REACT_APP_API_TOKEN);
 
 function App() {
   const [contacts, setContacts] = useState(0);
@@ -15,7 +17,7 @@ function App() {
       document.body.style.cursor='wait';
       setCursor('wait');
       // Make API call and update contacs number
-      const syncResponse = await axios.get(REACT_APP_BACKEND_URL);
+      const syncResponse = await axios.get(REACT_APP_BACKEND_URL, {headers: {Authorization: `Bearer ${REACT_APP_API_TOKEN}`}});
       if(syncResponse?.data){
         const {data} = syncResponse;
         setContacts(data.new_members + data.updated_members);
