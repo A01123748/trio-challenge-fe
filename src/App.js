@@ -6,8 +6,6 @@ import axios from 'axios';
 const REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const REACT_APP_API_TOKEN = process.env.REACT_APP_API_TOKEN;
 
-console.log(process.env.NODE_ENV, REACT_APP_BACKEND_URL, REACT_APP_API_TOKEN);
-
 function App() {
   const [contacts, setContacts] = useState(0);
   const [sync, setSync] = useState(false);
