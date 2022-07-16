@@ -1,23 +1,45 @@
-import logo from './logo.svg';
 import './App.css';
+import syncButton from './syncButton.png';
+import { useState } from 'react';
+import axios from 'axios';
+
+const REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 function App() {
+  const [contacts, setContacts] = useState(0);
+  const [sync, setSync] = useState(false);
+  const [cursor, setCursor] = useState('pointer');
+  const onClick = async () => {
+    if(sync === false){
+      document.body.style.cursor='wait';
+      setCursor('wait');
+      // Make API call and update contacs number
+      const syncResponse = await axios.get(REACT_APP_BACKEND_URL);
+      if(syncResponse?.data){
+        const {data} = syncResponse;
+        setContacts(data.new_members + data.updated_members);
+        setSync(true);
+        document.body.style.cursor='default';
+        setCursor('default');
+        setTimeout(() => {
+          setSync(false);
+          setContacts(0);
+          setCursor('pointer');
+        },5000);
+      }
+      else{
+        document.body.style.cursor='default';
+        setCursor('pointer');
+      }
+    }
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="App-body">
+        <img style={{animation: sync ? `spin 0.5s forwards` : ``, cursor}} className="sync-button" src={syncButton} text="sync" onClick={onClick} alt="sync-button"/>
+        <p>{sync ? `${contacts} contacts were synced!` : "Sync Contacts" }</p>
+      </div>
     </div>
   );
 }
