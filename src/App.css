@@ -1,0 +1,26 @@
+.App {
+  text-align: center;
+}
+
+.App-body {
+  background-attachment: fixed;
+  background-image: url('./blob.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #374A5E;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(180deg);
+  }
+}
