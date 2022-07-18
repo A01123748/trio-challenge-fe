@@ -33,3 +33,6 @@ npm run lint
 
 ## Technical Design
 [Technical Design](https://docs.google.com/document/d/1I3HpFebK13F9KPVKicdgZpgp77IYHrfTaK8yHrBnR8g/edit?usp=sharing)
+
+## Video
+[Frontend Video](https://drive.google.com/file/d/1xDJoYVmeg3zJ4aBjrm1lV_SnU2VQXI47/view?usp=sharing)
